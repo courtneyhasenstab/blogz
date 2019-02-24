@@ -6,8 +6,7 @@
     <p>This user hasn't made any blog posts.</p>
 {% else %}
     {% for post in posts | reverse %}
-    <h1 style="color:blueviolet"></h1>
-    <h3><a href="/blog?id={{ post.id }}">{{ post.title }}</a></h3>
+    <h3="color:blueviolet">a href="/blog?id={{ post.id }}">{{ post.title }}</a></h3>
     <p>{{ post.body }}</p>
     {% for user in users %}
         {% if post.owner_id == user.id  %}

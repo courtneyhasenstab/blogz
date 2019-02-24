@@ -7,7 +7,7 @@
     <p>You currently have no blog posts. Want to add one now?</p>
 {% else %}
     {% for post in posts | reverse %}
-   
+    
     <h3><a href="/blog?id={{ post.id }}">{{ post.title }}</a></h3>
     <p>{{ post.body }}</p>
     <hr />
