@@ -3,10 +3,11 @@
 <h1>Build a Blog</h1>
 <hr />
 {% if posts|length == 0 %}
+<h1 style="color:blueviolet"></h1>
     <p>You currently have no blog posts. Want to add one now?</p>
 {% else %}
     {% for post in posts | reverse %}
-    <h1 style="color:blueviolet"></h1>
+   
     <h3><a href="/blog?id={{ post.id }}">{{ post.title }}</a></h3>
     <p>{{ post.body }}</p>
     <hr />
