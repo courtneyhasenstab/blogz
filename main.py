@@ -45,6 +45,17 @@ def index():
 
 @app.route('/blog', methods=['POST','GET'])
 def blog():
+    blogs = Blog.query.all()
+    blog_id = request.args.get("id")
+    user_id = request.args.get("user_id")
+    users = User.query.all()
+    if user_id:
+        blogs = Blog.query.filter_by(owner_id=user_id).all()
+        return render_template("selectedbloger.html", blogs=blogs, users=users)
+    if blog_id:
+        blog = Blog.query.get(blog_id)
+        return render_template("blog.html", blog=blog, users=users)
+    return render_template("blog.html", blogs=blogs, users=users)
 
     if "user" in request.args:
         user_id = request.args.get("user")
