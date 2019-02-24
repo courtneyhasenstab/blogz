@@ -78,21 +78,12 @@ def new_post():
         body_error=''
 
         if len(title_entry) == 0:
-<<<<<<< HEAD
-            title_error = "Your Post Needs A Title!"
-        if len(body_entry) == 0:
-            body_error = "Your Post Needs A Body!"
-
-        if title_error or body_error:
-            return render_template('newpost.html', titlebase="New Entry", title_error = title_error, body_error = body_error, title=title_entry, body_name=body_entry)
-=======
             title_error = "Whoops! Please enter a title!"
         if len(body_entry) == 0:
             body_error = "Whoops! Please enter a Body!"
 
         if title_error or body_error:
             return render_template('newpost.html', titlebase="Create a new Entry", title_error = title_error, body_error = body_error, title=title_entry, body_name=body_entry)
->>>>>>> 78636ddf9b70dcc512e0ac52b21cc416a479bf11
 
         else:
             if len(title_entry) and len(body_entry) > 0:
@@ -117,15 +108,6 @@ def signup():
         verify = request.form['verify']
 
         if len(username) < 3 or len(username) > 20:
-<<<<<<< HEAD
-            username_error = "Invalid username"
-
-        if len(password) < 3 or len(password) > 20:
-            password_error = "Invalid password"
-
-        if password != verify:
-            verify_error = "Passwords do not match"
-=======
             username_error = "This username is invalid. Please try again!"
 
         if len(password) < 3 or len(password) > 20:
@@ -133,18 +115,13 @@ def signup():
 
         if password != verify:
             verify_error = "Your passwords do not match! Please try again!"
->>>>>>> 78636ddf9b70dcc512e0ac52b21cc416a479bf11
 
         if username_error!='' or password_error!='' or verify_error!='':
             return render_template('signup.html', username=username, username_error=username_error,password_error=password_error,verify_error=verify_error)
         
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
-<<<<<<< HEAD
-            username_error = "That username already exists"
-=======
             username_error = "Yikes! That username already exists!"
->>>>>>> 78636ddf9b70dcc512e0ac52b21cc416a479bf11
             return render_template('signup.html', username_error=username_error)
 
         if not existing_user:
@@ -176,19 +153,11 @@ def login():
             return redirect('/newpost')
 
         if user and user.password != password:
-<<<<<<< HEAD
-            password_error = "Incorrect Password"
-            return render_template('login.html', password_error=password_error)
-
-        if not user:
-            username_error = "Incorrect Username"
-=======
             password_error = "Wrong password! Please try again!"
             return render_template('login.html', password_error=password_error)
 
         if not user:
             username_error = "This username is incorrect! Please try again!"
->>>>>>> 78636ddf9b70dcc512e0ac52b21cc416a479bf11
             return render_template('login.html', username_error=username_error)
 
     else:
