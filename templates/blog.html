@@ -1,19 +1,14 @@
 {% extends "base.html" %}
-
 {% block content %}
-
-<h1>All of Your Blog Posts</h1>
-
-    <ul>
-        
-        {% for blog in blogs %}
-
-        <h2><a href="/blog?id={{blog.id}}">{{blog.title}}</a></h2>
-        <p>{{blog.body}}</p>
-        <p><strong>Post By: </strong><a href="/blog?user={{blog.owner_id}}">{{blog.owner.username}}</a></p>
-        <hr>
-
-        {% endfor %}
-
-    </ul>
-    {% endblock %}
+<h1>Build a Blog</h1>
+<hr />
+{% if posts|length == 0 %}
+    <p>You currently have no blog posts. Want to add one now?</p>
+{% else %}
+    {% for post in posts | reverse %}
+    <h3><a href="/blog?id={{ post.id }}">{{ post.title }}</a></h3>
+    <p>{{ post.body }}</p>
+    <hr />
+    {% endfor %}
+{% endif %}
+{% endblock %}
