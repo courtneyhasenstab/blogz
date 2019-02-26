@@ -32,6 +32,7 @@ class User(db.Model):
         self.username = username
         self.password = password
 
+
 @app.before_request
 def require_login():
     allowed_routes = ['index','blog','login','signup']
@@ -76,7 +77,7 @@ def new_post():
             body_error = "Whoops! Please enter a Body!"
 
         if title_error or body_error:
-            return render_template('newpost.html', titlebase="Create a new Entry", title_error = title_error, body_error = body_error, title=title_entry, body_name=body_entry)
+            return render_template('newpost.html', titlebase="Create a new Entry", title_error = title_error, body_error = body_error, title=title_entry, body=body_entry)
 
         else:
             if len(title_entry) and len(body_entry) > 0:
@@ -85,9 +86,11 @@ def new_post():
                 db.session.add(new_entry)
                 db.session.commit()
                 return redirect("/blog?id=" + str(new_entry.id))
+            
 
 @app.route("/signup", methods=['GET','POST'])
 def signup():
+
     username_error = ''
     password_error = ''
     verify_error = ''
@@ -110,7 +113,7 @@ def signup():
             verify_error = "Your passwords do not match! Please try again!"
 
         if username_error!='' or password_error!='' or verify_error!='':
-            return render_template('signup.html', username=username, username_error=username_error,password_error=password_error,verify_error=verify_error)
+            return render_template('signup.html', username=username, username_error=username_error, password_error=password_error,verify_error=verify_error)
 
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
@@ -128,6 +131,7 @@ def signup():
 
 @app.route("/login", methods=['GET','POST'])
 def login():
+    username_error = ''
 
     if request.method == 'GET':
         if 'username' not in session:
@@ -147,7 +151,7 @@ def login():
 
         if user and user.password != password:
             password_error = "Wrong password! Please try again!"
-            return render_template('login.html', password_error=password_error)
+            return render_template('login.html', password_error=password_error, username=username)
 
         if not user:
             username_error = "This username is incorrect! Please try again!"

@@ -6,25 +6,21 @@
         <tr>
         <label>
             <td>Create a catchy title:</td>
-            <td><input name="title" type="text"></td>
             <td>
-                <input name="title" type="text" value="{{ title_stay }}">
+                <input name="title" type="text" value="{{ title }}">
                 <span class="error">{{ title_error }}</span>
             </td>
         </label>
         </tr>
-        <tr><td></td><td><p class="error">{{ title_error }}</p></td></tr>
         <tr>
         <label>
             <td>Your new blog!:</td>
-            <td><textarea name="body"></textarea></td>
             <td>
-                <input name="body" type="text" value="{{ body_stay }}">
+                <input name="body" type="text" value="{{ body }}">
                 <span class="error">{{ body_error }}</span>
             </td>
         </label>
         </tr>
-        <tr><td></td><td><p class="error">{{ body_error }}</p></td></tr>
         
     </table>
     <input type="submit" value="Add Entry">

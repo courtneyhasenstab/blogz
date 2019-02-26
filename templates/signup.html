@@ -7,32 +7,22 @@
       <tr>
         <td><label for="username">Create Username</label></td>
         <td>
-            <input name="username" type="text" value="{{ username_stay }}">
+            <input name="username" type="text" value="{{ username }}">
             <span class="error">{{ username_error }}</span>
-        </td>
-          <span class="error">{{username_error}}</span>
         </td>
       </tr>
       <tr>
         <td><label for="password">Create Password</label></td>
-        <td>
-          <input name="password" type="password">
           <td>
-            <input name="username" type="text" value="{{ username_stay }}">
+            <input name="password" type="password" value="{{ username }}">
             <span class="error">{{ password_error }}</span>
-        </td>
-          <span class="error">{{password_error}}</span>
         </td>
       </tr>
       <tr>
         <td><label for="verify">Verify Password</label></td>
         <td>
-          <input name="verify" type="password">
-          <td>
-            <input name="password" type="text" value="{{ username_stay }}">
+            <input name="verify" type="password" value="{{ username }}">
             <span class="error">{{ verify_error }}</span>
-        </td>
-          <span class="error">{{verify_error}}</span>
         </td>
       </tr>
     </table>
