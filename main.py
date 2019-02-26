@@ -44,7 +44,6 @@ def index():
     return render_template('index.html', users=users)
 
 @app.route('/blog', methods=['POST','GET'])
-@app.route("/blog")
 def blog():
     posts = Blog.query.all()
     post_id = request.args.get("id")
@@ -52,10 +51,10 @@ def blog():
     users = User.query.all()
     if user_id:
         posts = Blog.query.filter_by(owner_id=user_id).all()
-        return render_template("selecteduser.html", posts=posts, users=users)
+        return render_template("singleUser.html", posts=posts, users=users)
     if post_id:
         post = Blog.query.get(post_id)
-        return render_template("selectedpost.html", post=post, users=users)
+        return render_template("viewpost.html", post=post, users=users)
     return render_template("blog.html", posts=posts, users=users)
 
 @app.route('/newpost', methods=['POST', 'GET'])
