@@ -7,7 +7,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:blogz@localhost:8
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY'] = True
 db = SQLAlchemy(app)
-app.secret_key = "blogz"
+app.secret_key = "blogz123"
 
 class Blog(db.Model):
 
@@ -27,7 +27,7 @@ class User(db.Model):
     username = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(20))
     blogs = db.relationship('Blog', backref='owner')
-    
+
     def __init__(self, username, password):
         self.username = username
         self.password = password
@@ -44,36 +44,19 @@ def index():
     return render_template('index.html', users=users)
 
 @app.route('/blog', methods=['POST','GET'])
+@app.route("/blog")
 def blog():
-    blogs = Blog.query.all()
-    blog_id = request.args.get("id")
+    posts = Blog.query.all()
+    post_id = request.args.get("id")
     user_id = request.args.get("user_id")
     users = User.query.all()
     if user_id:
-        blogs = Blog.query.filter_by(owner_id=user_id).all()
-        return render_template("selectedbloger.html", blogs=blogs, users=users)
-    if blog_id:
-        blog = Blog.query.get(blog_id)
-        return render_template("blog.html", blog=blog, users=users)
-    return render_template("blog.html", blogs=blogs, users=users)
-
-    if "user" in request.args:
-        user_id = request.args.get("user")
-        user = User.query.get(user_id)
-        user_blogs = Blog.query.filter_by(owner=user).all()
-        return render_template("singleUser.html", page_title = user.username + "'s Posts!", 
-                                                      user_blogs=user_blogs)
-    
-    single_post = request.args.get("id")
-    if single_post:
-        blog = Blog.query.get(single_post)
-        return render_template("viewpost.html", blog=blog)
-
-    else:
-        blogs = Blog.query.all()
-        return render_template('blog.html', page_title="All Blog Posts!", blogs=blogs)
-
-
+        posts = Blog.query.filter_by(owner_id=user_id).all()
+        return render_template("selecteduser.html", posts=posts, users=users)
+    if post_id:
+        post = Blog.query.get(post_id)
+        return render_template("selectedpost.html", post=post, users=users)
+    return render_template("blog.html", posts=posts, users=users)
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def new_post():
@@ -84,7 +67,7 @@ def new_post():
     if request.method == 'POST':
         title_entry = request.form['title']
         body_entry = request.form['body']
-        
+
         title_error=''
         body_error=''
 
@@ -129,7 +112,7 @@ def signup():
 
         if username_error!='' or password_error!='' or verify_error!='':
             return render_template('signup.html', username=username, username_error=username_error,password_error=password_error,verify_error=verify_error)
-        
+
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             username_error = "Yikes! That username already exists!"
@@ -153,7 +136,7 @@ def login():
         else:
             return redirect('/newpost')
 
-    
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -173,11 +156,11 @@ def login():
 
     else:
         return render_template('login.html')
-   
+
 @app.route("/logout")
 def logout():
     del session['username']
     return redirect('/')
 
 if __name__ == '__main__':
-    app.run()
+    app.run() 
